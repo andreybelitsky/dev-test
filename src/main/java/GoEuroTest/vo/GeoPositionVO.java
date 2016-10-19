@@ -1,9 +1,6 @@
 package GoEuroTest.vo;
 
-/**
- * Created by Andrii on 10/19/2016.
- */
-public class GeoPositionVO {
+public class GeoPositionVo {
     private String latitude;
     private String longitude;
 
@@ -28,7 +25,7 @@ public class GeoPositionVO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GeoPositionVO that = (GeoPositionVO) o;
+        GeoPositionVo that = (GeoPositionVo) o;
 
         if (latitude != null ? !latitude.equals(that.latitude) : that.latitude != null) return false;
         if (longitude != null ? !longitude.equals(that.longitude) : that.longitude != null) return false;
@@ -45,7 +42,7 @@ public class GeoPositionVO {
 
     @Override
     public String toString() {
-        return "GeoPositionVO{" +
+        return "GeoPositionVo{" +
                 "latitude='" + latitude + '\'' +
                 ", longitude='" + longitude + '\'' +
                 '}';
