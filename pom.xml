@@ -10,9 +10,11 @@
     <packaging>jar</packaging>
     <properties>
         <java.version>1.8</java.version>
-        <spring-web.version>4.1.4.RELEASE</spring-web.version>
+        <spring.version>4.3.2.RELEASE</spring.version>
         <jackson.version>2.5.4</jackson.version>
         <spring-boot-starter.version>1.4.0.RELEASE</spring-boot-starter.version>
+        <commons-csv.version>1.1</commons-csv.version>
+        <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
     </properties>
 
     <dependencies>
@@ -24,12 +26,17 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>${spring-web.version}</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>${spring-web.version}</version>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>${commons-csv.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -56,10 +63,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                     <encoding>UTF8</encoding>
                     <optimize>true</optimize>
                 </configuration>
