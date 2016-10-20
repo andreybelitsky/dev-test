@@ -28,6 +28,9 @@ public class CityRestCSVLoadingService implements CSVLoadingService {
     @Autowired
     RestTemplateBuilder builder;
 
+    /* This method writes a header into the file that notifies the consumers that it is a UTF8 with BOM file,
+     so that all the non-ASCII characters are handled properly.
+     */
     private void writeUtf8BomSpecialChars(OutputStream outputStream) throws IOException{
         outputStream.write(239);
         outputStream.write(187);
