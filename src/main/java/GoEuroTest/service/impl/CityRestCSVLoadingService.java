@@ -13,36 +13,38 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.io.UncheckedIOException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CityRestCSVLoadingService implements CSVLoadingService {
     public static final String CITY_REST_API = "http://api.goeuro.com/api/v2/position/suggest/en/%s";
     public static final String PATH_TO_CSV_FILE = "result.csv";
+    public static final char DELIMITER = ';';
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CityRestCSVLoadingService.class);
 
     @Autowired
     RestTemplateBuilder builder;
 
-    private void writeCityVoToFile(CSVPrinter csvFilePrinter, CityVo cityVo) {
-        try {
-            csvFilePrinter.printRecords(cityVo);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+    private void writeUtf8BomSpecialChars(OutputStream outputStream) throws IOException{
+        outputStream.write(239);
+        outputStream.write(187);
+        outputStream.write(191);
     }
 
     private void produceCSVFile(List<CityVo> citiesList) throws IOException {
-        CSVFormat csvFileFormat = CSVFormat.EXCEL.withHeader();
-        FileWriter fileWriter = new FileWriter(PATH_TO_CSV_FILE);
-        CSVPrinter csvFilePrinter = new CSVPrinter(fileWriter, csvFileFormat);
-        citiesList.stream().forEach(x->writeCityVoToFile(csvFilePrinter, x));
-        fileWriter.flush();
-        fileWriter.close();
-        csvFilePrinter.close();
+        CSVFormat csvFileFormat = CSVFormat.EXCEL.withHeader((String[])CityVo.FIELDS_LIST.toArray()).withDelimiter(DELIMITER);
+        try(OutputStream outputStream = new FileOutputStream(PATH_TO_CSV_FILE)) {
+            writeUtf8BomSpecialChars(outputStream);
+            try (PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                 CSVPrinter csvFilePrinter = new CSVPrinter(printWriter, csvFileFormat)
+            ) {
+                csvFilePrinter.printRecords(citiesList.stream().map(CityVo::asList).collect(Collectors.toList()));
+                printWriter.flush();
+            }
+        }
     }
 
     @Override

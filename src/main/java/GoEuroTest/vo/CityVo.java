@@ -1,6 +1,11 @@
 package GoEuroTest.vo;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class CityVo {
+    public static final List<String> FIELDS_LIST = Arrays.asList("_id", "key", "name", "fullName", "iata_airport_code",
+            "type", "country", "latitude", "longitude", "location_id", "inEurope", "countryCode", "coreCountry", "distance");
 
     private int _id;
     private String key;
@@ -181,5 +186,11 @@ public class CityVo {
                 ", coreCountry=" + coreCountry +
                 ", distance='" + distance + '\'' +
                 '}';
+    }
+
+    public List<String> asList(){
+        return Arrays.asList(String.valueOf(_id), key, name, fullName, iata_airport_code, type, country,
+                geo_position.getLatitude(), geo_position.getLongitude(), String.valueOf(location_id),
+                String.valueOf(inEurope), countryCode, String.valueOf(coreCountry), distance);
     }
 }
