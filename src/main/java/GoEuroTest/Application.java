@@ -28,7 +28,7 @@ public class Application {
         return args -> {
             LOGGER.info(String.format("Running the application with the following arguments %s", Arrays.toString(args)));
             if(args.length!=1) {
-                throw new IllegalArgumentException(String.format("Incorrect number of attributes expected 1 got %s", args.length));
+                throw new IllegalArgumentException(String.format("Incorrect number of attributes expected 1 got %s. For multiword cities please use quotation marks. ", args.length));
             }
             csvLoadingService.loadData(args[0]);
         };
