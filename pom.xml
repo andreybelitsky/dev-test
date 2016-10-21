@@ -12,16 +12,18 @@
         <java.version>1.8</java.version>
         <spring.version>4.3.2.RELEASE</spring.version>
         <jackson.version>2.5.4</jackson.version>
-        <spring-boot-starter.version>1.4.0.RELEASE</spring-boot-starter.version>
+        <spring-boot.version>1.4.0.RELEASE</spring-boot.version>
         <commons-csv.version>1.1</commons-csv.version>
         <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-            <version>${spring-boot-starter.version}</version>
+            <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -43,6 +45,12 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 
@@ -51,7 +59,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot-starter.version}</version>
+                <version>${spring-boot.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -70,10 +78,13 @@
                     <encoding>UTF8</encoding>
                     <optimize>true</optimize>
                 </configuration>
-
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
             </plugin>
         </plugins>
     </build>
-
 
 </project>

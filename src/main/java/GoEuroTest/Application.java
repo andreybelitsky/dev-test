@@ -30,7 +30,7 @@ public class Application {
             if(args.length!=1) {
                 throw new IllegalArgumentException(String.format("Incorrect number of attributes expected 1 got %s. For multiword cities please use quotation marks. ", args.length));
             }
-            csvLoadingService.loadData(args[0]);
+            csvLoadingService.downloadDataAsCSV(args[0]);
         };
     }
 }

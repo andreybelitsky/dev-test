@@ -1,5 +1,5 @@
 package GoEuroTest.service;
 
 public interface CSVLoadingService {
-    void loadData(String location);
+    void downloadDataAsCSV(String location);
 }

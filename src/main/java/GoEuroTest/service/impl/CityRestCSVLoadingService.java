@@ -38,7 +38,7 @@ public class CityRestCSVLoadingService implements CSVLoadingService {
         outputStream.write(191);
     }
 
-    private List<String> convertToList(CityVo cityVo){
+    public List<String> convertToList(CityVo cityVo) {
         return Arrays.asList(String.valueOf(cityVo.get_id()), cityVo.getKey(), cityVo.getName(), cityVo.getFullName(), cityVo.getIata_airport_code(), cityVo.getType(), cityVo.getCountry(),
                 cityVo.getGeo_position().getLatitude(), cityVo.getGeo_position().getLongitude(), String.valueOf(cityVo.getLocation_id()),
                 String.valueOf(cityVo.isInEurope()), cityVo.getCountryCode(), String.valueOf(cityVo.isCoreCountry()), cityVo.getDistance());
@@ -58,7 +58,7 @@ public class CityRestCSVLoadingService implements CSVLoadingService {
     }
 
     @Override
-    public void loadData(String location){
+    public void downloadDataAsCSV(String location) {
         ResponseEntity<List<CityVo>> responseEntity = builder.build().exchange(
                 String.format(CITY_REST_API, location),
                 HttpMethod.GET,
