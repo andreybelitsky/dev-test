@@ -187,10 +187,4 @@ public class CityVo {
                 ", distance='" + distance + '\'' +
                 '}';
     }
-
-    public List<String> asList(){
-        return Arrays.asList(String.valueOf(_id), key, name, fullName, iata_airport_code, type, country,
-                geo_position.getLatitude(), geo_position.getLongitude(), String.valueOf(location_id),
-                String.valueOf(inEurope), countryCode, String.valueOf(coreCountry), distance);
-    }
 }

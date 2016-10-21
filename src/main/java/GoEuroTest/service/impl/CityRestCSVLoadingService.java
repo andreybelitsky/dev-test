@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,12 @@ public class CityRestCSVLoadingService implements CSVLoadingService {
         outputStream.write(191);
     }
 
+    private List<String> convertToList(CityVo cityVo){
+        return Arrays.asList(String.valueOf(cityVo.get_id()), cityVo.getKey(), cityVo.getName(), cityVo.getFullName(), cityVo.getIata_airport_code(), cityVo.getType(), cityVo.getCountry(),
+                cityVo.getGeo_position().getLatitude(), cityVo.getGeo_position().getLongitude(), String.valueOf(cityVo.getLocation_id()),
+                String.valueOf(cityVo.isInEurope()), cityVo.getCountryCode(), String.valueOf(cityVo.isCoreCountry()), cityVo.getDistance());
+    }
+
     private void produceCSVFile(List<CityVo> citiesList) throws IOException {
         CSVFormat csvFileFormat = CSVFormat.EXCEL.withHeader((String[])CityVo.FIELDS_LIST.toArray()).withDelimiter(DELIMITER);
         try(OutputStream outputStream = new FileOutputStream(PATH_TO_CSV_FILE)) {
@@ -44,7 +51,7 @@ public class CityRestCSVLoadingService implements CSVLoadingService {
             try (PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                  CSVPrinter csvFilePrinter = new CSVPrinter(printWriter, csvFileFormat)
             ) {
-                csvFilePrinter.printRecords(citiesList.stream().map(CityVo::asList).collect(Collectors.toList()));
+                csvFilePrinter.printRecords(citiesList.stream().map(this::convertToList).collect(Collectors.toList()));
                 printWriter.flush();
             }
         }
